@@ -1,0 +1,53 @@
+apply plugin: "java"
+
+[compileJava, compileTestJava]*.options*.encoding = "UTF-8"
+
+group = "rebolt"
+version = "1.0"
+
+project.ext {
+  name = "rebolt-cache"
+}
+
+jar {
+  baseName = project.name
+  version = project.version
+}
+
+allprojects {
+  sourceCompatibility = 1.8
+  targetCompatibility = 1.8
+  repositories {
+    jcenter()
+    mavenCentral()
+    maven { url "https://jitpack.io" }
+  }
+}
+
+sourceSets {
+  [main, perf, test]
+}
+
+dependencies {
+  compile "com.github.rebolt:rebolt-core:dev-SNAPSHOT"
+
+  perfCompile project
+  perfCompile "org.openjdk.jmh:jmh-core:$ver_jmh"
+  perfCompile "org.openjdk.jmh:jmh-core-benchmarks:$ver_jmh"
+  perfCompile "org.openjdk.jmh:jmh-generator-annprocess:$ver_jmh"
+
+  testCompile "junit:junit:$ver_junit"
+}
+
+//noinspection GroovyAssignabilityCheck
+configurations.all {
+  //noinspection GroovyAssignabilityCheck
+  resolutionStrategy {
+    // cache dynamic versions for realtime
+    cacheDynamicVersionsFor 0, 'seconds'
+    // don't cache changing modules at all
+    cacheChangingModulesFor 0, 'seconds'
+  }
+}
+
+//compileJava.dependsOn clean
