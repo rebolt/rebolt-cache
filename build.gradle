@@ -30,6 +30,9 @@ sourceSets {
 
 dependencies {
   compile "com.github.rebolt:rebolt-core:dev-SNAPSHOT"
+  compile "org.cache2k:cache2k-api:$ver_cache2k"
+
+  runtime "org.cache2k:cache2k-core:$ver_cache2k"
 
   perfCompile project
   perfCompile "org.openjdk.jmh:jmh-core:$ver_jmh"
