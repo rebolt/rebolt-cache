@@ -3,7 +3,7 @@ package io.rebolt.cache.interceptors;
 import io.rebolt.cache.annotations.CacheableMethod;
 import io.rebolt.cache.enums.CacheType;
 import io.rebolt.cache.loaders.LocalCacheLoader;
-import io.rebolt.core.exceptions.NotInitializedException;
+import io.rebolt.core.exceptions.NotImplementedException;
 import io.rebolt.core.utils.HashUtil;
 import io.rebolt.core.utils.ProxyUtil.AbstractIterceptor;
 import net.bytebuddy.implementation.bind.annotation.AllArguments;
@@ -32,11 +32,11 @@ public final class SimpleCacheInterceptor extends AbstractIterceptor {
       long duration = cacheableMethod.duration();
       CacheType cacheType = cacheableMethod.type();
       Object value;
-      if (CacheType.Local.equals(cacheType)) {
+      if (CacheType.Inmemory.equals(cacheType)) {
         value = getCacheLoader(superMethod, max, duration).getCache(HashUtil.deepHash(args));
       } else {
         // TODO: Remote Cache 추가
-        throw new NotInitializedException("not implement");
+        throw new NotImplementedException("Not yet");
       }
       return value;
     }

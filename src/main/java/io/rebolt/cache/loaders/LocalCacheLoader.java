@@ -18,7 +18,11 @@ public final class LocalCacheLoader extends CacheLoader<Long, Object> {
 
   public LocalCacheLoader(final Callable<?> superMethod, int max, long duration) {
     this.superMethod = superMethod;
-    this.cache = new Cache2kBuilder<Long, Object>() {}.entryCapacity(max).expireAfterWrite(duration, TimeUnit.SECONDS).loader(this).build();
+    this.cache = new Cache2kBuilder<Long, Object>() {}
+        .entryCapacity(max)
+        .expireAfterWrite(duration, TimeUnit.SECONDS)
+        .loader(this)
+        .build();
   }
 
   @Override

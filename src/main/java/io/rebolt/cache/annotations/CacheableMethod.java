@@ -17,5 +17,5 @@ import java.lang.annotation.Target;
 public @interface CacheableMethod {
   int max() default 1024;
   int duration() default 60; // 초
-  CacheType type() default CacheType.Local;
+  CacheType type() default CacheType.Inmemory;
 }

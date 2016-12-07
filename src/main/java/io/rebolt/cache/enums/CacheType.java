@@ -11,7 +11,14 @@ import lombok.ToString;
 @ToString
 public enum CacheType {
 
-  Local(0),
+  /**
+   * 로컬메모리
+   */
+  Inmemory(0),
+
+  /**
+   * 분산 메모리 캐시
+   */
   InmemoryGrid(1);
 
   private final @Getter long type;
