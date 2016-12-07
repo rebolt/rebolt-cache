@@ -20,9 +20,18 @@ import java.util.concurrent.Callable;
  * @since 1.0
  */
 public final class SimpleCacheInterceptor extends AbstractIterceptor {
-  private volatile LocalCacheLoader localCacheLoader;
+  private LocalCacheLoader localCacheLoader;
   private final Object _lock = new Object();
 
+  /**
+   * 인터셉트 메소드.
+   * 타겟 클래스내 메소드가 호출되기 전에 먼저 호출된다.
+   *
+   * @param superMethod 원래 호출하고자 했던 메소드 (ByteBuddy용)
+   * @param method 원래 호출하고 했던 메소드 (Reflection {@link Method})
+   * @param args 메소드 인자
+   * @return 메소드 실행 결과값
+   */
   @RuntimeType
   @Override
   public Object intercept(@SuperCall Callable<?> superMethod, @Origin Method method, @AllArguments Object[] args) throws Exception {
@@ -33,7 +42,7 @@ public final class SimpleCacheInterceptor extends AbstractIterceptor {
       CacheType cacheType = cacheableMethod.type();
       Object value;
       if (CacheType.Inmemory.equals(cacheType)) {
-        value = getCacheLoader(superMethod, max, duration).getCache(HashUtil.deepHash(args));
+        value = getLocalCacheLoader(superMethod, max, duration).getCache(HashUtil.deepHash(args));
       } else {
         // TODO: Remote Cache 추가
         throw new NotImplementedException("Not yet");
@@ -43,7 +52,16 @@ public final class SimpleCacheInterceptor extends AbstractIterceptor {
     return superMethod.call();
   }
 
-  private LocalCacheLoader getCacheLoader(Callable<?> superMethod, int max, long duration) {
+  /**
+   * 로컬캐시로더 조회.
+   * 런타임시에 호출가능하다. 첫번째 호출시 초기화한다.
+   *
+   * @param superMethod 호출하고자 했던 메소드
+   * @param max 최대 캐싱수
+   * @param duration 캐싱 유효시간 (단위: 초)
+   * @return {@link LocalCacheLoader}
+   */
+  private LocalCacheLoader getLocalCacheLoader(Callable<?> superMethod, int max, long duration) {
     if (localCacheLoader == null) {
       synchronized (_lock) {
         if (localCacheLoader == null) {

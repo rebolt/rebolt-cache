@@ -16,6 +16,8 @@ public final class ReboltCache {
    * 클래스내 메소드에 {@link CacheableMethod} 어노테이션을 정의해 캐시를 활성화 한다.
    *
    * @param clazz 타켓 글래스, final로 정의하면 안된다.
+   * @param <T> 타켓 클래스 제네릭 타입
+   * @return 타켓 클래스 싱글턴 인스턴스
    * @since 1.0
    */
   public static <T> T getInstance(Class<T> clazz) {
@@ -27,6 +29,7 @@ public final class ReboltCache {
    * 클래스내 메소드에 {@link CacheableMethod} 어노테이션을 정의해 캐시를 활성화 한다.
    *
    * @param clazz 타겟 클래스, final로 정의하면 안된다.
+   * @param <T> 타켓 클래스 제네릭 타입
    * @return 생성된 인스턴스는 자체적으로 캐싱해 사용한다. (예: 스프링빈)
    * @since 1.0
    */

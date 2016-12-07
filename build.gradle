@@ -1,6 +1,17 @@
-apply plugin: "java"
+buildscript {
+  repositories {
+    jcenter()
+  }
+  dependencies {
+    classpath "com.github.jengelman.gradle.plugins:shadow:$ver_gradle_shadow"
+  }
+}
 
-[compileJava, compileTestJava]*.options*.encoding = "UTF-8"
+apply plugin: "java"
+apply plugin: "com.github.johnrengelman.shadow"
+
+[compileJava, compileTestJava, javadoc]*.options*.encoding = "UTF-8"
+[compileJava, compileTestJava]*.options*.compilerArgs = ["-Xlint:-options"]
 
 group = "rebolt"
 version = "1.0"
@@ -31,8 +42,7 @@ sourceSets {
 dependencies {
   compile "com.github.rebolt:rebolt-core:dev-SNAPSHOT"
   compile "org.cache2k:cache2k-api:$ver_cache2k"
-
-  runtime "org.cache2k:cache2k-core:$ver_cache2k"
+  compile "org.cache2k:cache2k-core:$ver_cache2k"
 
   perfCompile project
   perfCompile "org.openjdk.jmh:jmh-core:$ver_jmh"
