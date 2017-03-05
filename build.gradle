@@ -40,7 +40,7 @@ sourceSets {
 }
 
 dependencies {
-  compile "com.github.rebolt:rebolt-core:dev-SNAPSHOT"
+  compile "com.github.rebolt:rebolt-core:$ver_rebolt_core"
   compile "org.cache2k:cache2k-api:$ver_cache2k"
   compile "org.cache2k:cache2k-core:$ver_cache2k"
 
@@ -50,17 +50,6 @@ dependencies {
   perfCompile "org.openjdk.jmh:jmh-generator-annprocess:$ver_jmh"
 
   testCompile "junit:junit:$ver_junit"
-}
-
-//noinspection GroovyAssignabilityCheck
-configurations.all {
-  //noinspection GroovyAssignabilityCheck
-  resolutionStrategy {
-    // cache dynamic versions for realtime
-    cacheDynamicVersionsFor 0, 'seconds'
-    // don't cache changing modules at all
-    cacheChangingModulesFor 0, 'seconds'
-  }
 }
 
 //compileJava.dependsOn clean
