@@ -10,7 +10,7 @@ apply plugin: "java"
 [compileJava, compileTestJava]*.options*.compilerArgs = ["-Xlint:-options"]
 
 group = "rebolt"
-version = "1.0.1"
+version = "1.0.3"
 
 project.ext {
   name = "rebolt-cache"
