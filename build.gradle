@@ -2,13 +2,9 @@ buildscript {
   repositories {
     jcenter()
   }
-  dependencies {
-    classpath "com.github.jengelman.gradle.plugins:shadow:$ver_gradle_shadow"
-  }
 }
 
 apply plugin: "java"
-apply plugin: "com.github.johnrengelman.shadow"
 
 [compileJava, compileTestJava, javadoc]*.options*.encoding = "UTF-8"
 [compileJava, compileTestJava]*.options*.compilerArgs = ["-Xlint:-options"]
