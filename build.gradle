@@ -14,7 +14,7 @@ apply plugin: "com.github.johnrengelman.shadow"
 [compileJava, compileTestJava]*.options*.compilerArgs = ["-Xlint:-options"]
 
 group = "rebolt"
-version = "1.0.0"
+version = "1.0.1"
 
 project.ext {
   name = "rebolt-cache"
