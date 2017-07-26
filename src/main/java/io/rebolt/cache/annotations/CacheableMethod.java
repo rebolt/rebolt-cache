@@ -7,6 +7,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import static io.rebolt.core.constants.Constants.STRING_EMPTY;
+
 /**
  * 캐시기능을 사용할 메소드에 선언해서 사용한다.
  *
@@ -18,4 +20,5 @@ public @interface CacheableMethod {
   int max() default 1024;
   int duration() default 60; // 초
   CacheType type() default CacheType.Inmemory;
+  String name() default STRING_EMPTY;
 }
