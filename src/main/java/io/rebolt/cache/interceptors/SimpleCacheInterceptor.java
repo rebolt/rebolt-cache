@@ -22,7 +22,7 @@ import java.util.concurrent.Callable;
  *
  * @since 1.0
  */
-public final class SimpleCacheInterceptor extends AbstractIterceptor {
+public class SimpleCacheInterceptor extends AbstractIterceptor {
   private Map<String, LocalCacheLoader> localCacheLoaderMap = Maps.newConcurrentMap();
 
   /**
