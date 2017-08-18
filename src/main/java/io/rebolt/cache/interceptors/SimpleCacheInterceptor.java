@@ -17,6 +17,8 @@ import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.concurrent.Callable;
 
+import static io.rebolt.cache.enums.CacheType.Inmemory;
+
 /**
  * 가장 단순한 CacheInterceptor를 제공한다
  *
@@ -46,7 +48,7 @@ public class SimpleCacheInterceptor extends AbstractIterceptor {
         name = method.getName();
       }
       Object value;
-      if (CacheType.Inmemory.equals(cacheType)) {
+      if (cacheType == Inmemory) {
         value = getLocalCacheLoader(superMethod, name, max, duration).getCache(HashUtil.deepHash(args));
       } else {
         // TODO: Remote Cache 추가

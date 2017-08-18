@@ -26,8 +26,4 @@ public enum CacheType {
   CacheType(long type) {
     this.type = type;
   }
-
-  public boolean equals(CacheType cacheType) {
-    return type == cacheType.type;
-  }
 }
